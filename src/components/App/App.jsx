@@ -4,41 +4,22 @@ import AppContainer from '../AppContainer'
 import AppHeader from '../AppHeader'
 import ShoppingList from '../ShoppingList'
 import { Container, Wrapper } from './App.styles'
-import productsMock from '../../mocks/products.json'
 import extractPercentage from '../../utils/extractPercentage'
 import Calculator from '../Calculator'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAllProducts, selectSelectedProducts, selectSelectedProductTotalPrice } from '../../store/Products/Products.selectors'
+import { toggleProduct } from '../../store/Products/Products.actions'
 
 function App () {
+    const dispatch = useDispatch();
     const colors = ['#62CBC6', '#00ABAD', '#00858C', '#006073', '#004D61']
 
+    const products = useSelector(selectAllProducts)
+    const selectedProducts = useSelector(selectSelectedProducts)
+    const totalPrice = useSelector(selectSelectedProductTotalPrice)
     
-    const [products, setProducts] = useState(productsMock.products)
-    const [selectedProducts, setSelectedProducts] = useState([])
-    const [totalPrice, setTotalPrice] = useState(0) 
-
-    useEffect(() => {
-        const newSelectedProducts = products.filter(product => product.checked)
-        setSelectedProducts(newSelectedProducts)
-    },[products])
-
-    useEffect(() => {
-        const total = selectedProducts
-            .map(product => product.price)
-            .reduce((a, b) => a + b, 0)
-
-            setTotalPrice(total)
-
-    }, [selectedProducts])
-    
-
-    function handleToggle (id, checked, name) {
-        const newProducts = products.map(product => 
-                product.id === id
-                ? { ...product, checked: !product.checked }
-                : product
-        )
-        setProducts(newProducts)
+    function handleToggle (id) {
+        dispatch(toggleProduct(id))
     }
 
     return <Wrapper>
