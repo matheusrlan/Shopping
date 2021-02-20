@@ -6,9 +6,12 @@ import ShoppingList from '../ShoppingList'
 import { Container, Wrapper } from './App.styles'
 import productsMock from '../../mocks/products.json'
 import extractPercentage from '../../utils/extractPercentage'
+import Calculator from '../Calculator'
+import { useSelector } from 'react-redux'
 
 function App () {
     const colors = ['#62CBC6', '#00ABAD', '#00858C', '#006073', '#004D61']
+
     
     const [products, setProducts] = useState(productsMock.products)
     const [selectedProducts, setSelectedProducts] = useState([])
@@ -90,6 +93,9 @@ function App () {
                             currency: 'BRL'
                             }) }
                         </div>
+
+                        <Calculator />
+
                     </div>
                 </div>}
         />
