@@ -26,8 +26,8 @@ function App () {
         <Container>
           <AppHeader />
             <AppContainer 
-                left={<ShoppingList title="Produtos disponiveis" products={products} onToggle={handleToggle} />}
-                middle={<ShoppingList title="Sua lista de compras" products={selectedProducts} onToggle={handleToggle}/>}
+                left={<ShoppingList title="Produtos disponiveis" onToggle={handleToggle} />}
+                middle={<ShoppingList title="Sua lista de compras" displayOnlySelected onToggle={handleToggle}/>}
                 right={<div> 
                     Estatísticas
 
